@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="javaechec" version="4">
+  <OBJECT>
+    <ID name="javaechec" mc="Standard.Package" uid="a544ae38-6baa-4161-8f13-e11128b3993a"/>
+    <PID name="JavaEchec" mc="Standard.Project" uid="55d16770-c1f8-4427-adbd-fbe6de86e8d9"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[javaechec]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="pieces" mc="Standard.Package" uid="f2f98020-efcc-4806-83aa-b37af97be8f0"/>
+        <COMPID name="deplacements" mc="Standard.Package" uid="eba46f44-af87-48fc-be3b-6907d5f46ce8"/>
+        <COMPID name="plateau" mc="Standard.Package" uid="cf6aa45b-45f4-4b21-be07-859f7b1b41ce"/>
+        <COMPID name="moteur" mc="Standard.Package" uid="5285c033-9194-4707-bc6a-071845f3b97d"/>
+        <COMPID name="jeu" mc="Standard.Package" uid="c83a6831-a8d8-4ede-981a-58a91372f7ff"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Product">
+        <COMPID name="Diagramme de classe javaechec" mc="Standard.ClassDiagram" uid="11753d2c-71a8-499d-b2f2-cdcfd7643f73"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

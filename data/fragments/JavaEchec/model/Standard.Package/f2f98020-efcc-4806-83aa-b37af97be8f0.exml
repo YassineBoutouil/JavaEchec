@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="pieces" version="4">
+  <OBJECT>
+    <ID name="pieces" mc="Standard.Package" uid="f2f98020-efcc-4806-83aa-b37af97be8f0"/>
+    <PID name="javaechec" mc="Standard.Package" uid="a544ae38-6baa-4161-8f13-e11128b3993a"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[pieces]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Roi" mc="Standard.Class" uid="e17aa7af-2e3b-4a6c-9c4f-e71e8199ed77"/>
+        <COMPID name="Dame" mc="Standard.Class" uid="d8689fa4-5448-4b85-8f7d-e38e4b536479"/>
+        <COMPID name="Fou" mc="Standard.Class" uid="24aba8ce-93b2-4402-8170-2e126c249a89"/>
+        <COMPID name="Tour" mc="Standard.Class" uid="72ba4cd0-8a18-4f59-8cf1-7c1f4c6698e9"/>
+        <COMPID name="Cavalier" mc="Standard.Class" uid="aec0c2b6-c1b6-4291-8c7a-f4243d43787c"/>
+        <COMPID name="Pion" mc="Standard.Class" uid="35ca6454-a2a3-4733-a3cb-dd2b33e22417"/>
+        <COMPID name="Piece" mc="Standard.Class" uid="3b9c3832-b223-45a0-92db-331b1930e541"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

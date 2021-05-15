@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="WindowsFileChooserUI" version="4">
+  <OBJECT>
+    <ID name="WindowsFileChooserUI" mc="Standard.Class" uid="25800010-0000-1523-0000-000000000000"/>
+    <PID name="windows" mc="Standard.Package" uid="00d00398-0000-0db5-0000-000000000000"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[WindowsFileChooserUI]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Standard.Generalization" uid="25800010-0000-1524-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <ID name="BasicFileChooserUI" mc="Standard.Class" uid="00d00398-0000-2153-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="FilterComboBoxRenderer" mc="Standard.Class" uid="25800010-0000-157f-0000-000000000000"/>
+        <COMPID name="DirectoryComboBoxAction" mc="Standard.Class" uid="eb303d7d-4166-448f-a866-e7e5a6f4f665"/>
+        <COMPID name="DirectoryComboBoxModel" mc="Standard.Class" uid="9f31d67a-6f54-470a-9468-04d50c2eeaa7"/>
+        <COMPID name="FileRenderer" mc="Standard.Class" uid="9352e86d-8e17-437d-b08c-e8a67d163b7b"/>
+        <COMPID name="FilterComboBoxModel" mc="Standard.Class" uid="5796ae26-f4b8-48ac-82af-a7b4ac06f59b"/>
+        <COMPID name="SingleClickListener" mc="Standard.Class" uid="556d24f6-48c2-45c3-b1e7-f91a0efccf88"/>
+        <COMPID name="WindowsFileView" mc="Standard.Class" uid="cb8c2e37-7cb5-4819-a589-88d6cbd364cd"/>
+        <COMPID name="WindowsNewFolderAction" mc="Standard.Class" uid="630467ca-94ea-4d28-ad63-ec5642292d81"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaClass" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

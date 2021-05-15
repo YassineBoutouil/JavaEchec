@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="InputStreamHook" version="4">
+  <OBJECT>
+    <ID name="InputStreamHook" mc="Standard.Class" uid="25800010-0003-3d28-0000-000000000000"/>
+    <PID name="io" mc="Standard.Package" uid="25800010-0003-3d26-0000-000000000000"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">true</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[InputStreamHook]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Standard.Generalization" uid="25800010-0003-409a-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <ID name="ObjectInputStream" mc="Standard.Class" uid="00d00398-0000-2e4b-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="DefaultState" mc="Standard.Class" uid="8a5c5358-717f-468a-9b30-449c85c678c6"/>
+        <COMPID name="InReadObjectDefaultsSentState" mc="Standard.Class" uid="8d1241e4-d925-46c0-8029-6459a07942ea"/>
+        <COMPID name="InReadObjectNoMoreOptionalDataState" mc="Standard.Class" uid="5868a3a0-29e8-4668-a5ed-6046208e97e7"/>
+        <COMPID name="InReadObjectOptionalDataState" mc="Standard.Class" uid="d874ae8a-4f11-4517-ae7f-c56ddb582860"/>
+        <COMPID name="InReadObjectPastDefaultsRemoteDidNotUseWOState" mc="Standard.Class" uid="02f3e765-f805-479c-9d26-b85664e02aab"/>
+        <COMPID name="InReadObjectRemoteDidNotUseWriteObjectState" mc="Standard.Class" uid="0cd03d88-9274-49f1-8eac-b44beabca551"/>
+        <COMPID name="NoReadObjectDefaultsSentState" mc="Standard.Class" uid="4e18ed95-3c10-4c10-9d34-c3703b22c9f1"/>
+        <COMPID name="ReadObjectState" mc="Standard.Class" uid="c0c75c02-a970-4add-a6f4-e632261aa3a5"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaClass" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

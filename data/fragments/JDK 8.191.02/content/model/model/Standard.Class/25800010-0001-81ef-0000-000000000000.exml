@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="XMLSchemaValidator" version="4">
+  <OBJECT>
+    <ID name="XMLSchemaValidator" mc="Standard.Class" uid="25800010-0001-81ef-0000-000000000000"/>
+    <PID name="xs" mc="Standard.Package" uid="25800010-0001-65d3-0000-000000000000"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[XMLSchemaValidator]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Realized">
+        <OBJECT>
+          <ID name="" mc="Standard.InterfaceRealization" uid="25e819f0-0000-2c18-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="XMLComponent" mc="Standard.Interface" uid="25800010-0001-63eb-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.InterfaceRealization" uid="25e819f0-0000-2c1c-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="XMLDocumentFilter" mc="Standard.Interface" uid="25800010-0001-81f3-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.InterfaceRealization" uid="25e819f0-0000-2c1d-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="FieldActivator" mc="Standard.Interface" uid="25800010-0001-71d7-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.InterfaceRealization" uid="25e819f0-0000-2c21-0000-000000000000"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="RevalidationHandler" mc="Standard.Interface" uid="25800010-0001-81f8-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedElement">
+        <COMPID name="KeyRefValueStore" mc="Standard.Class" uid="4bbd5107-c613-4a1a-b36b-b20ce4ee6c3c"/>
+        <COMPID name="KeyValueStore" mc="Standard.Class" uid="a66ea35b-423d-4c2d-be67-cdf0ce6fd5c9"/>
+        <COMPID name="LocalIDKey" mc="Standard.Class" uid="de473c39-c478-4ae8-8110-4e0df438015f"/>
+        <COMPID name="ShortVector" mc="Standard.Class" uid="d84a0ce0-7a5e-4144-a130-f81e4979dcb6"/>
+        <COMPID name="UniqueValueStore" mc="Standard.Class" uid="7b461763-17a7-4e83-b9e8-74bb1dd49010"/>
+        <COMPID name="ValueStoreBase" mc="Standard.Class" uid="46669963-7075-405b-8620-786c71742d78"/>
+        <COMPID name="ValueStoreCache" mc="Standard.Class" uid="f232f90f-9606-4d0d-9829-4b2229858a62"/>
+        <COMPID name="XPathMatcherStack" mc="Standard.Class" uid="3ec76995-ae1a-48f8-8056-a83d2d0fed85"/>
+        <COMPID name="XSIErrorReporter" mc="Standard.Class" uid="3caf7ead-c896-4074-9841-fe67e3456031"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaClass" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
