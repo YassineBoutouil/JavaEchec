@@ -3,6 +3,7 @@ package plateau;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import pieces.Piece;
 
+import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -21,12 +22,12 @@ public class Echiquier {
             }
         }
         initialiserPiece(true,
-  "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
+        "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
         "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"
         );
 
         initialiserPiece(false,
-  "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
+        "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
         "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"
         );
     }
@@ -35,9 +36,9 @@ public class Echiquier {
     public String toString() {
         String chaine = "";
         for (int y = TAILLE_ECHIQUIER/8; y > 0; y--) {
-            for(int x = 1; x < TAILLE_ECHIQUIER/8 ; x++) {
+            for(int x = 1; x < TAILLE_ECHIQUIER/8 +1 ; x++) {
                 chaine += getCasePlateau(x , y).toStringPiece() + "  ";
-                if (x == 7) {
+                if (x == 8) {
                     chaine += "\n";
                 }
             }
@@ -60,11 +61,6 @@ public class Echiquier {
 
         }
     }
-
-    private static int getCoordonnee(Case c) {
-        return getCoordonnee(c.getColonne(), c.getLigne());
-    }
-
 
     private void setCasePlateau(Case c) {
         this.plateau[getCoordonnee(c)] = c;
@@ -91,8 +87,33 @@ public class Echiquier {
         }
     }
 
+    public boolean estValide(Case caseDepart, Case caseArrivee) {
+        int x_init, y_init;
+        int x = 0, y = 0;
+        if (!caseDepart.estVide() && !caseDepart.memeCase(caseArrivee) && caseDepart.getPiece().verifDeplacement(caseArrivee)) {
+            Point p = caseDepart.getPiece().directionDeplacement(caseArrivee);
+            x = caseDepart.getColonne() + ((int) p.getX());
+            y = caseDepart.getLigne() + ((int) p.getY());
+            x_init = (int) p.getX();
+            y_init = (int) p.getY();
+            while (dansEchiquier(x, y) && getCasePlateau(x, y).estVide() && !getCasePlateau(x, y).memeCase(caseArrivee)) {
+                x += x_init;
+                y += y_init;
+            }
+            return (dansEchiquier(x, y) && getCasePlateau(x, y).memeCase(caseArrivee) &&
+                   (caseArrivee.estVide() || getCasePlateau(x, y).getPiece().couleurOpposee(caseArrivee.getPiece())));
+        }
+        return false;
+    }
+
     private static int getCoordonnee(int x, int y) {
         return ((y-1)*8)+x-1;
     }
 
+    private static int getCoordonnee(Case c) {
+        return getCoordonnee(c.getColonne(), c.getLigne());
+    }
+    private static boolean dansEchiquier(int x, int y) {
+        return 0 < x && x <= 8 && 0 < y && y <= 8;
+    }
 }
