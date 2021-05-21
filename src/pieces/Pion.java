@@ -1,11 +1,8 @@
 package pieces;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import plateau.Case;
 
-@objid ("35ca6454-a2a3-4733-a3cb-dd2b33e22417")
 public class Pion extends Piece {
-    @objid ("9628139f-eff1-4a91-ac04-2f64c79b3e2d")
     public Pion(boolean couleur) {
         super(couleur);
     }

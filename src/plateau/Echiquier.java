@@ -1,16 +1,12 @@
 package plateau;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import pieces.Piece;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-@objid ("e24132db-b559-4888-b9fd-4086fc39a182")
 public class Echiquier {
-
-    @objid ("8d325553-3ae3-4d0a-b888-879dbb31cf28")
 
     public final static int TAILLE_ECHIQUIER = 64;
     public final Case[] plateau = new Case[TAILLE_ECHIQUIER];
@@ -96,14 +92,19 @@ public class Echiquier {
             y = caseDepart.getLigne() + ((int) p.getY());
             x_init = (int) p.getX();
             y_init = (int) p.getY();
+            System.out.println(p);
             while (dansEchiquier(x, y) && getCasePlateau(x, y).estVide() && !getCasePlateau(x, y).memeCase(caseArrivee)) {
                 x += x_init;
                 y += y_init;
             }
             return (dansEchiquier(x, y) && getCasePlateau(x, y).memeCase(caseArrivee) &&
-                   (caseArrivee.estVide() || getCasePlateau(x, y).getPiece().couleurOpposee(caseArrivee.getPiece())));
+                   (caseArrivee.estVide() || caseDepart.getPiece().couleurOpposee(caseArrivee.getPiece())));
         }
         return false;
+    }
+
+    public void deplacerPiece(Case caseDepart, Case CaseArrivee) {
+
     }
 
     private static int getCoordonnee(int x, int y) {
