@@ -1,45 +1,72 @@
 package plateau;
 
+import pieces.NomPiece;
 import pieces.Piece;
 
 import java.awt.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class Echiquier {
 
     public final static int TAILLE_ECHIQUIER = 64;
-    public final Case[] plateau = new Case[TAILLE_ECHIQUIER];
+    public final Case[][] plateau = new Case[TAILLE_ECHIQUIER/8][TAILLE_ECHIQUIER/8];
 
     public Echiquier() {
-        for(int y = 1; y < (TAILLE_ECHIQUIER/8)+1; y++) {
-            for(int x = 1;  x < (TAILLE_ECHIQUIER/8)+1; x++) {
+        for(int y = 0; y < (TAILLE_ECHIQUIER/8); y++) {
+            for(int x = 0;  x < (TAILLE_ECHIQUIER/8); x++) {
                 this.setCasePlateau(new Case(x, y));
             }
         }
-        initialiserPiece(true,
-        "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
-        "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"
+        initialiserPiece();
+        /*initialiserPiece(true,
+                new String[]{"Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
+                "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"}
         );
 
         initialiserPiece(false,
-        "Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
-        "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"
-        );
+                new String[]{"Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
+                "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"}
+        );*/
+    }
+
+    public void initialiserPiece() {
+        ajouterPiece(NomPiece.Tour, true, 0, 0); ajouterPiece(NomPiece.Cavalier, true, 1, 0);
+        ajouterPiece(NomPiece.Fou, true, 2, 0); ajouterPiece(NomPiece.Dame, true, 3, 0);
+        ajouterPiece(NomPiece.Roi, true, 4, 0); ajouterPiece(NomPiece.Fou, true, 5, 0);
+        ajouterPiece(NomPiece.Cavalier, true, 6, 0); ajouterPiece(NomPiece.Tour, true, 7, 0);
+
+        ajouterPiece(NomPiece.Pion, true, 0, 1); ajouterPiece(NomPiece.Pion, true, 1, 1);
+        ajouterPiece(NomPiece.Pion, true, 2, 1); ajouterPiece(NomPiece.Pion, true, 3, 1);
+        ajouterPiece(NomPiece.Pion, true, 4, 1); ajouterPiece(NomPiece.Pion, true, 5, 1);
+        ajouterPiece(NomPiece.Pion, true, 6, 1); ajouterPiece(NomPiece.Pion, true, 7, 1);
+
+        ajouterPiece(NomPiece.Tour, false, 0, 7); ajouterPiece(NomPiece.Cavalier, false, 1, 7);
+        ajouterPiece(NomPiece.Fou, false, 2, 7); ajouterPiece(NomPiece.Dame, false, 3, 7);
+        ajouterPiece(NomPiece.Roi, false, 4, 7); ajouterPiece(NomPiece.Fou, false, 5, 7);
+        ajouterPiece(NomPiece.Cavalier, false, 6, 7); ajouterPiece(NomPiece.Tour, false, 7, 7);
+
+        ajouterPiece(NomPiece.Pion, false, 0, 6); ajouterPiece(NomPiece.Pion, false, 1, 6);
+        ajouterPiece(NomPiece.Pion, false, 2, 6); ajouterPiece(NomPiece.Pion, false, 3, 6);
+        ajouterPiece(NomPiece.Pion, false, 4, 6); ajouterPiece(NomPiece.Pion, false, 5, 6);
+        ajouterPiece(NomPiece.Pion, false, 6, 6); ajouterPiece(NomPiece.Pion, false, 7, 6);
+
     }
 
     @Override
     public String toString() {
-        String chaine = "";
-        for (int y = TAILLE_ECHIQUIER/8; y > 0; y--) {
-            for(int x = 1; x < TAILLE_ECHIQUIER/8 +1 ; x++) {
-                chaine += getCasePlateau(x , y).toStringPiece() + "  ";
-                if (x == 8) {
-                    chaine += "\n";
-                }
+        StringBuilder chaine = new StringBuilder("    -");
+
+        for(int i = 1; dansEchiquier(i); i++) chaine.append("--");
+        chaine.append("\n    ");
+        for(int i = 0; dansEchiquier(i); i++) chaine.append((char)(65 + i)).append(" ");
+        chaine.insert(0, "\n");
+
+        for(int ligne = 0; dansEchiquier(ligne); ligne++) {
+            for(int colonne = (TAILLE_ECHIQUIER/8)-1; dansEchiquier(colonne); colonne--) {
+                chaine.insert(0, " " + this.getCasePlateau(colonne, ligne).toStringPiece());
             }
+            chaine.insert(0, "\n" + (ligne+1) + " |");
         }
-        return chaine;
+        return chaine.toString();
 
     }
 
@@ -47,41 +74,22 @@ public class Echiquier {
         this.getCasePlateau(x, y).setPiece(piece);
     }
 
-    public void ajouterPiece(String piece, boolean couleur, int x, int y) {
+    public void ajouterPiece(NomPiece piece, boolean couleur, int x, int y) {
         try {
-            Class<?> piece_class = Class.forName("pieces."+piece);
-            Constructor<?> piece_constructor = piece_class.getConstructor(boolean.class);
-            this.getCasePlateau(x, y).setPiece((Piece) piece_constructor.newInstance(new Object[]{couleur}));
-            this.getCasePlateau(x, y).getPiece().setCase(this.getCasePlateau(x, y));
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
-
+            this.getCasePlateau(x, y).setPiece(Piece.parse(piece, couleur));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void setCasePlateau(Case c) {
-        this.plateau[getCoordonnee(c)] = c;
+        this.plateau[c.getLigne()][c.getColonne()] = c;
     }
 
-    public Case getCasePlateau(int x, int y) {
-        return this.plateau[getCoordonnee(x, y)];
+    public Case getCasePlateau(int colonne, int ligne) {
+        return this.plateau[ligne][colonne];
     }
 
-    public Case getCasePlateau(int i) {
-        return this.plateau[i];
-    }
-
-    public void initialiserPiece(boolean b, String... args) {
-        int incremente = -1, x = 1, y = 8;
-        if (b) { incremente = 1; y = 1; }
-        for(String piece : args) {
-            ajouterPiece(piece, b, x, y);
-            x++;
-            if (x == 9) {
-                x = 1;
-                y = y + incremente;
-            }
-        }
-    }
 
     public boolean estValide(Case caseDepart, Case caseArrivee) {
         int x_init, y_init;
@@ -92,29 +100,31 @@ public class Echiquier {
             y = caseDepart.getLigne() + ((int) p.getY());
             x_init = (int) p.getX();
             y_init = (int) p.getY();
-            System.out.println(p);
             while (dansEchiquier(x, y) && getCasePlateau(x, y).estVide() && !getCasePlateau(x, y).memeCase(caseArrivee)) {
                 x += x_init;
                 y += y_init;
             }
             return (dansEchiquier(x, y) && getCasePlateau(x, y).memeCase(caseArrivee) &&
-                   (caseArrivee.estVide() || caseDepart.getPiece().couleurOpposee(caseArrivee.getPiece())));
+                    (caseArrivee.estVide() || caseDepart.getPiece().couleurOpposee(caseArrivee.getPiece())));
         }
         return false;
     }
 
-    public void deplacerPiece(Case caseDepart, Case CaseArrivee) {
-
+    public boolean deplacerPiece(Case caseDepart, Case caseArrivee) {
+        if(!caseDepart.estVide()) {
+            caseArrivee.setPiece(caseDepart.getPiece());
+            caseDepart.viderCase();
+            return true;
+        }
+        return false;
     }
 
-    private static int getCoordonnee(int x, int y) {
-        return ((y-1)*8)+x-1;
+    private static boolean dansEchiquier(int colonne, int ligne) {
+        return dansEchiquier(colonne) && dansEchiquier(ligne);
     }
 
-    private static int getCoordonnee(Case c) {
-        return getCoordonnee(c.getColonne(), c.getLigne());
-    }
-    private static boolean dansEchiquier(int x, int y) {
-        return 0 < x && x <= 8 && 0 < y && y <= 8;
+    private static boolean dansEchiquier(int x) {
+        return 0 <= x && x < TAILLE_ECHIQUIER/8;
     }
 }
+

@@ -1,6 +1,9 @@
 package plateau;
 
+import pieces.NomPiece;
 import pieces.Piece;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class Case {
 
@@ -123,9 +126,17 @@ public class Case {
                 Math.abs(this.getColonne() - case_p.getColonne());
     }
 
+    public static Case parse(int x, int y) {
+        return new Case(x, y);
+    }
+
+    public static Case parse(NomPiece piece, boolean couleur, int x, int y) throws InvocationTargetException, ClassNotFoundException, InstantiationException, NoSuchMethodException, IllegalAccessException {
+        return new Case(Piece.parse(piece, couleur), x, y);
+    }
+
     public String toStringPiece(){
         if (this.piece == null) {
-            return "-";
+            return "~";
         }
         return this.piece.toStringAffiche();
     }

@@ -3,6 +3,8 @@ package pieces;
 import plateau.Case;
 
 import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public abstract class Piece {
     protected Case case_piece;
@@ -37,7 +39,7 @@ public abstract class Piece {
         return this.couleur;
     }
 
-    public void aJoue() {
+    public void bouge() {
         this.dejaJoue = true;
     }
 
@@ -51,6 +53,15 @@ public abstract class Piece {
 
     public boolean couleurOpposee(Piece p) {
         return (this.estBlanc() ^ p.estBlanc());
+    }
+
+    public static Piece parse(NomPiece piece, boolean couleur) throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException, NoSuchMethodException {
+        Piece new_piece;
+        Class<?> piece_class = Class.forName("pieces."+piece);
+        Constructor<?> piece_constructor = piece_class.getConstructor(boolean.class);
+        new_piece = ((Piece) piece_constructor.newInstance(new Object[]{couleur}));
+
+        return new_piece;
     }
 
     @Override
