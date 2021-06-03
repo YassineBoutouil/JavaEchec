@@ -48,7 +48,6 @@ public class Echiquier {
         ajouterPiece(NomPiece.Pion, false, 2, 6); ajouterPiece(NomPiece.Pion, false, 3, 6);
         ajouterPiece(NomPiece.Pion, false, 4, 6); ajouterPiece(NomPiece.Pion, false, 5, 6);
         ajouterPiece(NomPiece.Pion, false, 6, 6); ajouterPiece(NomPiece.Pion, false, 7, 6);
-
     }
 
     @Override
@@ -119,11 +118,26 @@ public class Echiquier {
         return false;
     }
 
+    public Case traduireCoord(String coord) {
+        if(estFormatCoord(coord)) {
+            throw new IllegalArgumentException("Coordonnées non valide.");
+        }
+        int ligne, colonne;
+        colonne = coord.charAt(0) - 65;
+        ligne = coord.charAt(1) - 48 -1;
+        return this.getCasePlateau(colonne, ligne);
+    }
+
+    public static boolean estFormatCoord(String coord) {
+        return (coord.length() == 2 && Character.isLetter(coord.charAt(0)) && coord.charAt(0) > 65
+                && coord.charAt(0) < 65+((TAILLE_ECHIQUIER/8) -1) && dansEchiquier(coord.charAt(1)-48-1));
+    }
+
     private static boolean dansEchiquier(int colonne, int ligne) {
         return dansEchiquier(colonne) && dansEchiquier(ligne);
     }
 
-    private static boolean dansEchiquier(int x) {
+    public static boolean dansEchiquier(int x) {
         return 0 <= x && x < TAILLE_ECHIQUIER/8;
     }
 }

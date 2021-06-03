@@ -6,5 +6,6 @@ public class MainClass {
         Echiquier plateau = new Echiquier();
         System.out.println(plateau);
         plateau.ajouterPiece(NomPiece.Tour, true, 3, 3);
+
     }
 }
