@@ -9,7 +9,7 @@ public class Pion extends Piece {
 
     @Override
     public boolean verifDeplacement(Case case_p) {
-        return (this.calculNombreCaseDeplacement(case_p) < 3) && !(this.case_piece == case_p) && (this.estBlanc() ^ this.case_piece.getLigne() >= case_p.getLigne()) &&
+        return super.verifDeplacement(case_p) && this.calculNombreCaseDeplacement(case_p) < 3 && (this.estBlanc() ^ this.case_piece.getLigne() >= case_p.getLigne()) &&
                (case_p.estVide() || this.couleurOpposee(case_p.getPiece())) &&
                (
                    this.calculNombreCaseDeplacement(case_p) == 2 &&
@@ -21,7 +21,17 @@ public class Pion extends Piece {
                    ) ||
                    this.calculNombreCaseDeplacement(case_p) == 1
                );
-
+        /*
+        if(this.calculNombreCaseDeplacement(case_p) < 3) {
+            if(!(this.case_piece == case_p)) {
+                if(this.estBlanc() ^ (this.case_piece.getLigne() >= case_p.getLigne()) ) {
+                    if(case_p.estVide() || this.couleurOpposee(case_p.getPiece())) {
+                    }
+                }
+            }
+        }
+        return false;
+        */
     }
 
     @Override

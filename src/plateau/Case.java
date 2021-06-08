@@ -24,6 +24,22 @@ public class Case {
         this.couleur = !((this.colonne + this.ligne) % 2 == 0); // Si impair blanc sinon noir
     }
 
+    public Case(Case uneCase) {
+        this.colonne = uneCase.getColonne();
+        this.ligne = uneCase.getLigne();
+        this.couleur = uneCase.estBlanche();
+        if(!uneCase.estVide()) {
+            try {
+                this.piece = uneCase.getPiece().copy();
+                this.piece.setCase(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            this.piece = null;
+        }
+    }
+
     /**
      * Construis une case avec une pièce
      * @param unePiece pièce contenu dans la case
@@ -52,6 +68,9 @@ public class Case {
     public void setPiece(Piece p) {
         if (!(p.getCase() == null)) {
             p.getCase().viderCase();
+        }
+        if(!(getPiece() == null)) {
+            getPiece().enleverPieceCase();
         }
         p.setCase(this);
         this.piece = p;
@@ -132,6 +151,7 @@ public class Case {
                 Math.abs(this.getColonne() - case_p.getColonne());
     }
 
+
     public static Case parse(int x, int y) {
         return new Case(x, y);
     }
@@ -153,5 +173,10 @@ public class Case {
                 "("+this.colonne+", "+this.ligne+")"+
                 ", piece=" + this.piece +
                 '}';
+    }
+
+    public String toStringCallInPiece() {
+        return "Case{" +
+                "("+this.colonne+", "+this.ligne+")";
     }
 }

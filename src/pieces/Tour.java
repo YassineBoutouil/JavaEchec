@@ -9,7 +9,7 @@ public class Tour extends Piece {
 
     @Override
     public boolean verifDeplacement(Case case_p) {
-        return this.case_piece.estRectiligne(case_p);
+        return super.verifDeplacement(case_p) && this.case_piece.estRectiligne(case_p);
     }
 
     @Override

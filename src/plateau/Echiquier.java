@@ -4,6 +4,7 @@ import pieces.NomPiece;
 import pieces.Piece;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Echiquier {
 
@@ -18,6 +19,14 @@ public class Echiquier {
         }
         initialiserPiece();
 
+    }
+
+    public Echiquier(Echiquier plateau) {
+        for(int ligne = 0; ligne < (TAILLE_ECHIQUIER); ligne++) {
+            for(int colonne = 0;  colonne < (TAILLE_ECHIQUIER); colonne++) {
+                this.setCasePlateau(new Case(plateau.getCasePlateau(colonne, ligne)));
+            }
+        }
     }
 
     public void initialiserPiece() {
@@ -40,6 +49,23 @@ public class Echiquier {
         ajouterPiece(NomPiece.Pion, false, 2, 6); ajouterPiece(NomPiece.Pion, false, 3, 6);
         ajouterPiece(NomPiece.Pion, false, 4, 6); ajouterPiece(NomPiece.Pion, false, 5, 6);
         ajouterPiece(NomPiece.Pion, false, 6, 6); ajouterPiece(NomPiece.Pion, false, 7, 6);
+    }
+
+    /**
+     * Permet de récupérer les pièces de l'échiquier correspondantes à la couleur passée en paramètre.
+     * @param couleur couleur des pièces voulues.
+     * @return Un tableau de pièce contenant l'ensemble des pièces de l'échiquier correspondantes à la couleur choisie.
+     */
+    public ArrayList<Piece> getPieceJoueur(boolean couleur) {
+        ArrayList<Piece> pieces = new ArrayList<>();
+        for(Case[] ligne : this.plateau)  {
+            for(Case uneCase: ligne) {
+                if(!uneCase.estVide() && !(uneCase.getPiece().couleurOpposee(couleur))) {
+                    pieces.add(uneCase.getPiece());
+                }
+            }
+        }
+        return pieces;
     }
 
     @Override
@@ -81,10 +107,10 @@ public class Echiquier {
         return this.plateau[ligne][colonne];
     }
 
-    private Case getCasePlateau(String coord) {
+    public Case getCasePlateau(String coord) {
         int ligne, colonne;
         colonne = coord.charAt(0) - 65;
-        ligne = coord.charAt(1) - 48 -1;
+        ligne = coord.charAt(1) - 49;
         return this.getCasePlateau(colonne, ligne);
     }
 
@@ -106,6 +132,7 @@ public class Echiquier {
         }
         return false;
     }
+
 
     public boolean deplacerPiece(Case caseDepart, Case caseArrivee) {
         if(!caseDepart.estVide()) {
