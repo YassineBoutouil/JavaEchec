@@ -25,7 +25,7 @@ public class Pion extends Piece {
     }
 
     @Override
-    public String toStringAffiche() {
+    public String toStringPiece() {
         if (this.estBlanc()) {
             return "p";
         }

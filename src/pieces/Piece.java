@@ -71,5 +71,5 @@ public abstract class Piece {
                 '}';
     }
 
-    public abstract String toStringAffiche();
+    public abstract String toStringPiece();
 }

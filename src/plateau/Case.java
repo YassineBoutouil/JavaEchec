@@ -9,17 +9,19 @@ public class Case {
 
     private final int ligne; // y
     private final int colonne; // x
+    private final boolean couleur; // true = blanc
 
     private Piece piece = null; // Reference null == case vide
 
     /**
-    * Contruis une case vide
+    * Contruis une case vide avec la couleur correspondante au coordonnée
     * @param x colonne
     * @param y ligne
     */
     public Case(int x, int y) {
         this.colonne = x;
         this.ligne = y;
+        this.couleur = !((this.colonne + this.ligne) % 2 == 0); // Si impair blanc sinon noir
     }
 
     /**
@@ -68,6 +70,10 @@ public class Case {
 
     public int getColonne() {
         return this.colonne;
+    }
+
+    public boolean estBlanche() {
+        return this.couleur;
     }
 
     /**
@@ -138,7 +144,7 @@ public class Case {
         if (this.piece == null) {
             return "~";
         }
-        return this.piece.toStringAffiche();
+        return this.piece.toStringPiece();
     }
 
     @Override

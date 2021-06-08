@@ -7,25 +7,17 @@ import java.awt.*;
 
 public class Echiquier {
 
-    public final static int TAILLE_ECHIQUIER = 64;
-    public final Case[][] plateau = new Case[TAILLE_ECHIQUIER/8][TAILLE_ECHIQUIER/8];
+    public final static int TAILLE_ECHIQUIER = 8;
+    public final Case[][] plateau = new Case[TAILLE_ECHIQUIER][TAILLE_ECHIQUIER];
 
     public Echiquier() {
-        for(int y = 0; y < (TAILLE_ECHIQUIER/8); y++) {
-            for(int x = 0;  x < (TAILLE_ECHIQUIER/8); x++) {
+        for(int y = 0; y < (TAILLE_ECHIQUIER); y++) {
+            for(int x = 0;  x < (TAILLE_ECHIQUIER); x++) {
                 this.setCasePlateau(new Case(x, y));
             }
         }
         initialiserPiece();
-        /*initialiserPiece(true,
-                new String[]{"Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
-                "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"}
-        );
 
-        initialiserPiece(false,
-                new String[]{"Tour", "Cavalier", "Fou",  "Dame",  "Roi",   "Fou", "Cavalier", "Tour",
-                "Pion",   "Pion",   "Pion", "Pion",  "Pion",  "Pion",  "Pion",   "Pion"}
-        );*/
     }
 
     public void initialiserPiece() {
@@ -60,7 +52,7 @@ public class Echiquier {
         chaine.insert(0, "\n");
 
         for(int ligne = 0; dansEchiquier(ligne); ligne++) {
-            for(int colonne = (TAILLE_ECHIQUIER/8)-1; dansEchiquier(colonne); colonne--) {
+            for(int colonne = TAILLE_ECHIQUIER-1; dansEchiquier(colonne); colonne--) {
                 chaine.insert(0, " " + this.getCasePlateau(colonne, ligne).toStringPiece());
             }
             chaine.insert(0, "\n" + (ligne+1) + " |");
@@ -89,6 +81,12 @@ public class Echiquier {
         return this.plateau[ligne][colonne];
     }
 
+    private Case getCasePlateau(String coord) {
+        int ligne, colonne;
+        colonne = coord.charAt(0) - 65;
+        ligne = coord.charAt(1) - 48 -1;
+        return this.getCasePlateau(colonne, ligne);
+    }
 
     public boolean estValide(Case caseDepart, Case caseArrivee) {
         int x_init, y_init;
@@ -112,25 +110,26 @@ public class Echiquier {
     public boolean deplacerPiece(Case caseDepart, Case caseArrivee) {
         if(!caseDepart.estVide()) {
             caseArrivee.setPiece(caseDepart.getPiece());
-            caseDepart.viderCase();
             return true;
         }
         return false;
     }
 
-    public Case traduireCoord(String coord) {
-        if(estFormatCoord(coord)) {
-            throw new IllegalArgumentException("Coordonnées non valide.");
-        }
-        int ligne, colonne;
-        colonne = coord.charAt(0) - 65;
-        ligne = coord.charAt(1) - 48 -1;
-        return this.getCasePlateau(colonne, ligne);
-    }
-
     public static boolean estFormatCoord(String coord) {
-        return (coord.length() == 2 && Character.isLetter(coord.charAt(0)) && coord.charAt(0) > 65
-                && coord.charAt(0) < 65+((TAILLE_ECHIQUIER/8) -1) && dansEchiquier(coord.charAt(1)-48-1));
+        if (coord.length() >= 2) {
+            char lettre = coord.charAt(0);
+            if(Character.isLetter(lettre)) {
+                if(Character.isLowerCase(lettre)) lettre = (char)(lettre-32);
+                int nombre;
+                try {
+                    nombre = Integer.parseInt(coord.substring(1));
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+                return lettre <= TAILLE_ECHIQUIER + 65 && nombre > 0 && nombre <= TAILLE_ECHIQUIER;
+            }
+        }
+        return false;
     }
 
     private static boolean dansEchiquier(int colonne, int ligne) {
@@ -138,7 +137,7 @@ public class Echiquier {
     }
 
     public static boolean dansEchiquier(int x) {
-        return 0 <= x && x < TAILLE_ECHIQUIER/8;
+        return 0 <= x && x < TAILLE_ECHIQUIER;
     }
 }
 

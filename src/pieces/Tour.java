@@ -13,7 +13,7 @@ public class Tour extends Piece {
     }
 
     @Override
-    public String toStringAffiche() {
+    public String toStringPiece() {
         if (this.estBlanc()) {
             return "t";
         }
