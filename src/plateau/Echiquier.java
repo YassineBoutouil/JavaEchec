@@ -2,6 +2,7 @@ package plateau;
 
 import pieces.NomPiece;
 import pieces.Piece;
+import pieces.Roi;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ public class Echiquier {
     public final static int TAILLE_ECHIQUIER = 8;
     public final Case[][] plateau = new Case[TAILLE_ECHIQUIER][TAILLE_ECHIQUIER];
 
-    public Echiquier() {
+    public Echiquier(boolean vide) {
         for(int y = 0; y < (TAILLE_ECHIQUIER); y++) {
             for(int x = 0;  x < (TAILLE_ECHIQUIER); x++) {
                 this.setCasePlateau(new Case(x, y));
             }
         }
-        initialiserPiece();
+        if(!vide)
+            initialiserPiece();
 
     }
 
@@ -68,6 +70,19 @@ public class Echiquier {
         return pieces;
     }
 
+    public Piece getRoiJoueur(boolean couleur) {
+        Piece piece = null;
+        for(int ligne = 0; dansEchiquier(ligne); ligne++) {
+            for(int colonne = 0; dansEchiquier(colonne); colonne++) {
+                piece = this.getCasePlateau(colonne, ligne).getPiece();
+                if(piece instanceof Roi && !piece.couleurOpposee(couleur)) {
+                    return piece;
+                }
+            }
+        }
+        return piece;
+    }
+
     @Override
     public String toString() {
         StringBuilder chaine = new StringBuilder("    -");
@@ -109,7 +124,11 @@ public class Echiquier {
 
     public Case getCasePlateau(String coord) {
         int ligne, colonne;
-        colonne = coord.charAt(0) - 65;
+        if(Character.isLowerCase(coord.charAt(0))) {
+            colonne = coord.charAt(0) - 32 - 65;
+        } else {
+            colonne = coord.charAt(0) - 65;
+        }
         ligne = coord.charAt(1) - 49;
         return this.getCasePlateau(colonne, ligne);
     }
@@ -133,9 +152,14 @@ public class Echiquier {
         return false;
     }
 
+    public boolean estValide(Piece pieceDepart, Piece pieceArrivee) {
+        return estValide(pieceDepart.getCase(), pieceArrivee.getCase());
+    }
+
 
     public boolean deplacerPiece(Case caseDepart, Case caseArrivee) {
         if(!caseDepart.estVide()) {
+            caseDepart.getPiece().aBouge();
             caseArrivee.setPiece(caseDepart.getPiece());
             return true;
         }

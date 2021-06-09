@@ -19,7 +19,7 @@ public class Pion extends Piece {
                            !this.dejaJoue)
                        || ((Math.abs(this.case_piece.getColonne() - case_p.getColonne()) == 1) ^ this.calculNombreCaseDeplacement(case_p) == 2 && !this.dejaJoue)
                    ) ||
-                   this.calculNombreCaseDeplacement(case_p) == 1
+                   (this.calculNombreCaseDeplacement(case_p) == 1 && case_p.estVide())
                );
         /*
         if(this.calculNombreCaseDeplacement(case_p) < 3) {

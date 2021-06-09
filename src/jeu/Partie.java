@@ -1,7 +1,10 @@
 package jeu;
 
+import pieces.Piece;
 import plateau.Case;
 import plateau.Echiquier;
+
+import java.util.ArrayList;
 
 public class Partie {
 
@@ -13,6 +16,8 @@ public class Partie {
 
     private Joueur joueurCourant = this.joueur_blanc;
 
+    private boolean abandon;
+
     private boolean estFini;
 
     public Partie(Echiquier plateau, Joueur joueur_blanc, Joueur joueur_noir) {
@@ -23,11 +28,15 @@ public class Partie {
     }
 
     public Partie(String nom_blanc, String nom_noir) {
-        this(new Echiquier(), new Joueur(nom_blanc), new Joueur(nom_noir));
+        this(new Echiquier(false), new Joueur(nom_blanc), new Joueur(nom_noir));
     }
 
     public Partie() {
-        this(new Echiquier(), new Joueur("joueurBlanc"), new Joueur("JoueurNoir"));
+        this(new Echiquier(false), new Joueur("joueurBlanc"), new Joueur("JoueurNoir"));
+    }
+
+    public Partie(Echiquier plateau) {
+        this(plateau, new Joueur("joueurBlanc"), new Joueur("JoueurNoir"));
     }
 
     public void start() {
@@ -38,21 +47,26 @@ public class Partie {
 
     public void tourDeJeu()  {
         Echiquier sauvegardeTempEchiquier = new Echiquier(this.plateau);
+        Partie.clearConsole();
         this.afficherPlateau();
-        if(!this.Abandonner() && !this.estMatPat()) {
-            System.out.println("C'est au tour de " + this.joueurCourant);
-            this.effectueeCoup();
+        System.out.println("C'est au tour de " + this.joueurCourant.getNom());
+        if(!this.estMatPat() && !this.abandonner()) {
+            if(!this.estEnEchec()) {
+                this.effectueeCoup();
+            }
             while(this.estEnEchec()) {
+                System.out.println(this.joueurCourant.getNom() + " est en échec.");
                 this.plateau = new Echiquier(sauvegardeTempEchiquier);
                 this.effectueeCoup();
             }
             this.changerTrait();
         } else {
-            System.out.println("Abandon de "+this.joueurCourant);
-            System.out.println(this.getJoueurOpposee() + " a gagné !");
             this.finirPartie();
+            if(!estEnEchec() && !this.abandon)
+                System.out.println("EGALITE");
+            else
+                System.out.println(this.getJoueurOpposee() + " a gagné !");
         }
-
     }
 
     public Case choisirCaseValide() {
@@ -110,21 +124,49 @@ public class Partie {
     }
 
     public boolean estEnEchec() {
+        Piece roi = this.plateau.getRoiJoueur(traitAuBlanc());
+        ArrayList<Piece> pieces = this.plateau.getPieceJoueur(!traitAuBlanc());
+        for(Piece piece: pieces) {
+            if(plateau.estValide(piece.getCase(), roi.getCase())) {
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean estMatPat() {
-        return false;
-    }
-
-    public void verifierFinDePartie() {
-
-    }
-
-
-
-    public void retourArriere() {
-
+        /*
+           Pour toutes les pièces du joueur courant, on va regarder s'il existe une case sur laquelle une de ses pièces peut se déplacer
+           et on "simule", dans ce cas là, un coup pour vérifier si ce déplacement ne mettrait pas en échec le joueur.
+           Le joueur est pat s'il n'existe aucun coup possible et que le roi n'est pas attaqué
+           Le joueur est echec et mat s'il n'existe aucun coup qui sauve son roi de l'échec
+        */
+        Piece pieceTemp;
+        Case casePiece;
+        boolean pat = true, echec = this.estEnEchec();
+        /*
+         On part du principe que le joueur est en mat/pat. On cherche un contre exemple.
+         Un échec et mat équivaut à un pat où le roi est attaqué
+         */
+        ArrayList<Piece> piecesJoueurCourant = this.getPlateau().getPieceJoueur(this.traitAuBlanc());
+        Echiquier sauvegardeTempEchiquier = new Echiquier(this.getPlateau());
+        for(Piece piece : piecesJoueurCourant) {
+            for(int ligne = 0; Echiquier.dansEchiquier(ligne) && pat ; ligne++) {
+                for (int colonne = 0; Echiquier.dansEchiquier(colonne) && pat; colonne++) {
+                    if(this.getPlateau().estValide(piece.getCase(), this.getPlateau().getCasePlateau(colonne, ligne))){
+                        casePiece = piece.getCase();
+                        this.plateau = new Echiquier(this.plateau);
+                        pieceTemp = this.plateau.getCasePlateau(casePiece.getColonne(), casePiece.getLigne()).getPiece();
+                        this.plateau.deplacerPiece(pieceTemp.getCase(), this.plateau.getCasePlateau(colonne, ligne));
+                        if(!this.estEnEchec()) {
+                            pat = false;
+                        }
+                        this.plateau = sauvegardeTempEchiquier;
+                    }
+                }
+            }
+        }
+        return pat;
     }
 
     /**
@@ -151,10 +193,11 @@ public class Partie {
         return this.plateau;
     }
 
-    public boolean Abandonner() {
-        System.out.println("Saisir Oui pour abandonner sinon Non");
+    public boolean abandonner() {
+        System.out.println("Saisir oui pour abandonner sinon non");
         if(Joueur.choisirCase().equalsIgnoreCase("oui")) {
             this.finirPartie();
+            this.abandon = true;
             return true;
         }
         return false;
@@ -164,4 +207,15 @@ public class Partie {
         System.out.println(getPlateau());
     }
 
+    public Joueur getJoueurBlanc() {
+        return this.joueur_blanc;
+    }
+
+    public Joueur getJoueurNoir() {
+        return this.joueur_noir;
+    }
+
+    public static void clearConsole() {
+        System.out.println("\r\n".repeat(100));
+    }
 }

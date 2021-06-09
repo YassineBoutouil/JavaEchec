@@ -105,5 +105,10 @@ public abstract class Piece {
         return chaine.toString();
     }
 
+    public String toStringSimple() {
+        return this.getClass().getSimpleName() +
+                "{couleur=" + this.couleur+"}";
+    }
+
     public abstract String toStringPiece();
 }

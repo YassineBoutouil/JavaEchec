@@ -109,7 +109,7 @@ public class Case {
      * Renvoie si la ligne de la case courante est égale à celle de la case
      * passée en paramètre
      * @param c une case
-     * @returnrue true si la case a la même ligne
+     * @return true true si la case a la même ligne
      */
     public boolean memeLigne(Case c) {
         return this.ligne == c.getLigne();
