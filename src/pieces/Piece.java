@@ -3,10 +3,11 @@ package pieces;
 import plateau.Case;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     protected Case case_piece;
 
     protected final boolean couleur;
@@ -18,19 +19,23 @@ public abstract class Piece {
     }
 
     /**
-     * Verification basique pour savoir si la case où se situe la pièce est la même que celle d'arrivée.
-     * @param case_p une Case
-     * @return true si la case où se situe la pièce est différente de la case d'arrivée
+     * Indique si le déplacement vers la case est conforme au modèle de déplacement de la pièce.
+     * @param case_p une case.
+     * @return True si le déplacement est correcte.
      */
-    public boolean verifDeplacement(Case case_p) {
-        return !(this.case_piece == case_p);
-    }
+    public abstract boolean verifDeplacement(Case case_p);
+
 
     protected int calculNombreCaseDeplacement(Case case_p) {
         return (Math.abs(this.case_piece.getLigne()-case_p.getLigne())
                 + Math.abs(this.case_piece.getColonne()-case_p.getColonne()));
     }
 
+    /**
+     * Permet de récupérer la direction de déplacement de la pièce vers une case
+     * @param case_p Une case
+     * @return un Point(x, y) qui représente la direction de déplacement.
+     */
     public Point directionDeplacement(Case case_p) {
         int x = 0, y = 0;
         if (!this.case_piece.memeColonne(case_p)) {
@@ -42,38 +47,75 @@ public abstract class Piece {
         return new Point(x, y);
     }
 
+    /**
+     * Permet de savoir la couleur de la pièce
+     * @return true si la pièce est blanche
+     */
     public boolean estBlanc() {
         return this.couleur;
     }
 
+    /**
+     * Indique que la pièce a joué
+     */
     public void aBouge() {
         this.dejaJoue = true;
     }
 
+    /**
+     * Change la case où se situe la pièce courante.
+     * @param c une Case
+     */
     public void setCase(Case c) {
         this.case_piece = c;
     }
 
+    /**
+     * Sort la pièce de sa case
+     */
     public void enleverPieceCase() {
         this.case_piece = null;
     }
 
+    /**
+     * Indique si la pièce est dans une case
+     * @return true si la pièce est dans une case
+     */
     public boolean estDansUneCase() {
         return !(this.case_piece == null);
     }
 
+    /**
+     * Renvoie la case de la pièce
+     * @return la case où est la pièce
+     */
     public Case getCase() {
         return this.case_piece;
     }
 
+    /**
+     * Indique si la pièce courante est de couleur opposée à celle passée en paramètre.
+     * @param p Une pièce.
+     * @return true si la pièce passée en paramètre est de couleur opposée.
+     */
     public boolean couleurOpposee(Piece p) {
         return (this.estBlanc() ^ p.estBlanc());
     }
 
+    /**
+     * @see #couleurOpposee(Piece)
+     */
     public boolean couleurOpposee(boolean couleur) {
         return (this.estBlanc() ^ couleur);
     }
 
+    /**
+     * Permet de construire une pièce à partir d'une chaine de caractère et d'une couleur.
+     * @param piece un String de type NomPiece.
+     * @param couleur une couleur.
+     * @return une nouvelle pièce d'échec en fonction des paramètres.
+
+     */
     public static Piece parse(NomPiece piece, boolean couleur) throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException, NoSuchMethodException {
         Piece new_piece;
         Class<?> piece_class = Class.forName("pieces."+piece);
@@ -83,6 +125,10 @@ public abstract class Piece {
         return new_piece;
     }
 
+    /**
+     * Renvoie une copie de la pièce d'échecs.
+     * @return une copie de la pièce d'échecs courante.
+     */
     public Piece copy() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Piece new_piece;
         Class<?> piece_class = Class.forName("pieces."+this.getClass().getSimpleName());

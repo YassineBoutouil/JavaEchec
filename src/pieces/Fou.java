@@ -9,7 +9,7 @@ public class Fou extends Piece {
 
     @Override
     public boolean verifDeplacement(Case case_p) {
-        return super.verifDeplacement(case_p) && this.case_piece.estDiagonal(case_p);
+        return !this.getCase().memeCase(case_p) && this.case_piece.estDiagonal(case_p);
     }
 
     @Override

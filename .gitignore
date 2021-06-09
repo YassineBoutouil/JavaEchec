@@ -1,8 +1,8 @@
 .idea/
 .runtime/
 data/
-doc/
 out/
 JavaEchec.iml
 project.conf
 bin/
+/saves/

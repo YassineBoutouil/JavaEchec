@@ -3,13 +3,22 @@ package pieces;
 import plateau.Case;
 
 public class Pion extends Piece {
+    /**
+     * Construis un pion avec la couleur passé en paramètre
+     * @param couleur true pour blanc
+     */
     public Pion(boolean couleur) {
         super(couleur);
     }
 
+    /**
+     *
+     * @param case_p une Case
+     * @return
+     */
     @Override
     public boolean verifDeplacement(Case case_p) {
-        return super.verifDeplacement(case_p) && this.calculNombreCaseDeplacement(case_p) < 3 && (this.estBlanc() ^ this.case_piece.getLigne() >= case_p.getLigne()) &&
+        return !this.getCase().memeCase(case_p) && this.calculNombreCaseDeplacement(case_p) < 3 && (this.estBlanc() ^ this.case_piece.getLigne() >= case_p.getLigne()) &&
                (case_p.estVide() || this.couleurOpposee(case_p.getPiece())) &&
                (
                    this.calculNombreCaseDeplacement(case_p) == 2 &&

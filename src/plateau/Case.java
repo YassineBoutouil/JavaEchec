@@ -3,9 +3,10 @@ package plateau;
 import pieces.NomPiece;
 import pieces.Piece;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-public class Case {
+public class Case implements Serializable {
 
     private final int ligne; // y
     private final int colonne; // x
@@ -21,13 +22,17 @@ public class Case {
     public Case(int x, int y) {
         this.colonne = x;
         this.ligne = y;
-        this.couleur = !((this.colonne + this.ligne) % 2 == 0); // Si impair blanc sinon noir
+        this.couleur = !((this.colonne + this.ligne) % 2 == 0); // Si impair claire sinon foncée
     }
 
+    /**
+     * Constructeur par copie d'une case
+     * @param uneCase la case à copier
+     */
     public Case(Case uneCase) {
         this.colonne = uneCase.getColonne();
         this.ligne = uneCase.getLigne();
-        this.couleur = uneCase.estBlanche();
+        this.couleur = uneCase.estClaire();
         if(!uneCase.estVide()) {
             try {
                 this.piece = uneCase.getPiece().copy();
@@ -83,15 +88,25 @@ public class Case {
         this.piece = null;
     }
 
+    /**
+     * @return la ligne de la case.
+     */
     public int getLigne() {
         return this.ligne;
     }
 
+    /**
+     * @return la colonne de la case.
+     */
     public int getColonne() {
         return this.colonne;
     }
 
-    public boolean estBlanche() {
+    /**
+     * Renvoie la couleur de la case.
+     * @return true si la case est claire false si la case est foncée.
+     */
+    public boolean estClaire() {
         return this.couleur;
     }
 
@@ -151,11 +166,25 @@ public class Case {
                 Math.abs(this.getColonne() - case_p.getColonne());
     }
 
-
+    /**
+     * Renvoie une case vide correspondante aux coordonnées passées en paramètre.
+     * @param x colonne de la case.
+     * @param y ligne de la case.
+     * @return une nouvelle case.
+     */
     public static Case parse(int x, int y) {
         return new Case(x, y);
     }
 
+    /**
+     * Construis et renvoie une case contenant une pièce.
+     * @param piece Nom de la pièce.
+     * @param couleur Couleur de la pièce.
+     * @param x Colonne de la case.
+     * @param y Ligne de la case.
+     * @return Une nouvelle case contenant une pièce
+     * @see pieces.Piece#parse(NomPiece, boolean)
+     */
     public static Case parse(NomPiece piece, boolean couleur, int x, int y) throws InvocationTargetException, ClassNotFoundException, InstantiationException, NoSuchMethodException, IllegalAccessException {
         return new Case(Piece.parse(piece, couleur), x, y);
     }
