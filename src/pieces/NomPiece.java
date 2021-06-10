@@ -6,5 +6,9 @@ public enum NomPiece {
     Fou,
     Pion,
     Roi,
-    Tour
+    Tour;
+
+    public static NomPiece getPiece(String nomPiece) {
+        return NomPiece.valueOf(nomPiece.substring(0, 1).toUpperCase()+nomPiece.substring(1).toLowerCase());
+    }
 }

@@ -107,16 +107,16 @@ public class Echiquier implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder chaine = new StringBuilder("    -");
+        StringBuilder chaine = new StringBuilder("    ---");
 
-        for(int i = 1; dansEchiquier(i); i++) chaine.append("--");
-        chaine.append("\n    ");
-        for(int i = 0; dansEchiquier(i); i++) chaine.append((char)(65 + i)).append(" ");
+        for(int i = 1; dansEchiquier(i); i++) chaine.append("---");
+        chaine.append("\n     ");
+        for(int i = 0; dansEchiquier(i); i++) chaine.append((char)(65 + i)).append("  ");
         chaine.insert(0, "\n");
 
         for(int ligne = 0; dansEchiquier(ligne); ligne++) {
             for(int colonne = TAILLE_ECHIQUIER-1; dansEchiquier(colonne); colonne--) {
-                chaine.insert(0, " " + this.getCasePlateau(colonne, ligne).toStringPiece());
+                chaine.insert(0, "  " + this.getCasePlateau(colonne, ligne).toStringPiece());
             }
             chaine.insert(0, "\n" + (ligne+1) + " |");
         }
@@ -185,7 +185,7 @@ public class Echiquier implements Serializable {
     }
 
     /**
-     * Indique si un déplacement d'une case à une autre en fonction du modèle de déplacement de la possible pièce sur la case de départ et de la configuration de l'échiquier.
+     * Indique si un déplacement d'une case à une autre est valide en fonction du modèle de déplacement de la possible pièce sur la case de départ et de la configuration de l'échiquier.
      * @param caseDepart une case de départ.
      * @param caseArrivee une case d'arrivée.
      * @return True si le déplacement est possible.

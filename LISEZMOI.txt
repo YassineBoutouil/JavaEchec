@@ -1,0 +1,5 @@
+Ce projet à été réalisé dans le cadre du projet tuteuré du S2 de DUT INFO. 
+Il s'agit d'un jeu d'échecs basique avec vérification MAT/PAT
+
+Pour exécuter le programme, un jar est mis à votre disposition :
+	java -jar JavaEchec.jar

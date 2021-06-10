@@ -62,6 +62,10 @@ public abstract class Piece implements Serializable {
         this.dejaJoue = true;
     }
 
+    private void setBouge(boolean dejaJoue) {
+        this.dejaJoue = dejaJoue;
+    }
+
     /**
      * Change la case où se situe la pièce courante.
      * @param c une Case
@@ -134,6 +138,7 @@ public abstract class Piece implements Serializable {
         Class<?> piece_class = Class.forName("pieces."+this.getClass().getSimpleName());
         Constructor<?> piece_constructor = piece_class.getConstructor(boolean.class);
         new_piece = ((Piece) piece_constructor.newInstance(new Object[]{this.estBlanc()}));
+        new_piece.setBouge(this.dejaJoue);
 
         return new_piece;
     }
@@ -141,7 +146,7 @@ public abstract class Piece implements Serializable {
     @Override
     public String toString() {
         StringBuilder chaine = new StringBuilder(this.getClass().getSimpleName()+"{" +
-                                                "couleur=" + couleur + ", ");
+                                                "couleur=" + couleur + ", dejaJoué : " + this.dejaJoue +", ");
         if(this.estDansUneCase()) {
             chaine.append(this.case_piece.toStringCallInPiece());
         } else {
@@ -153,7 +158,9 @@ public abstract class Piece implements Serializable {
 
     public String toStringSimple() {
         return this.getClass().getSimpleName() +
-                "{couleur=" + this.couleur+"}";
+                "{couleur=" + this.couleur +
+                ", dejaJoué : " + this.dejaJoue +
+                "}";
     }
 
     public abstract String toStringPiece();

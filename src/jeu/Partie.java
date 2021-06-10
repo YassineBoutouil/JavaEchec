@@ -6,6 +6,7 @@ import plateau.Echiquier;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Partie {
@@ -198,19 +199,9 @@ public class Partie {
      * @return true le joueur est en mat ou en pat.
      */
     public boolean estMatPat() {
-        /*
-           Pour toutes les pièces du joueur courant, on va regarder s'il existe une case sur laquelle une de ses pièces peut se déplacer
-           et on "simule", dans ce cas là, un coup pour vérifier si ce déplacement ne mettrait pas en échec le joueur.
-           Le joueur est pat s'il n'existe aucun coup possible et que le roi n'est pas attaqué
-           Le joueur est echec et mat s'il n'existe aucun coup qui sauve son roi de l'échec
-        */
         Piece pieceTemp;
         Case casePiece;
         boolean pat = true, echec = this.estEnEchec();
-        /*
-         On part du principe que le joueur est en mat/pat. On cherche un contre exemple.
-         Un échec et mat équivaut à un pat où le roi est attaqué
-         */
         ArrayList<Piece> piecesJoueurCourant = this.getPlateau().getPiecesJoueur(this.traitAuBlanc());
         Echiquier sauvegardeTempEchiquier = new Echiquier(this.getPlateau());
         for(Piece piece : piecesJoueurCourant) {
@@ -271,7 +262,7 @@ public class Partie {
      * @return true s'il a abandonné.
      */
     public boolean action() {
-        System.out.println("Saisir : Oui pour abandonner | save pour charger une partie | load pour charger une partie | Non sinon");
+        System.out.println("Saisir : Oui pour abandonner | save pour sauvegarder une partie | load pour charger une partie | Non sinon");
         String choix;
         do {
             choix = scanner.nextLine();
@@ -357,6 +348,6 @@ public class Partie {
      * Nettoie l'affichage dans la console.
      */
     public static void clearConsole() {
-        System.out.println("\r\n".repeat(100));
+        System.out.println(String.join("", Collections.nCopies(10, "\r\n")));
     }
 }
